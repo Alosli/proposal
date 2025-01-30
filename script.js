@@ -9,18 +9,23 @@ const noButton = document.getElementById('noButton');
 let isDragging = false;
 let offsetX, offsetY;
 
-// Make the sandal draggable
-sandal.addEventListener('mousedown', (e) => {
+// Function to start dragging
+function startDrag(e) {
   isDragging = true;
-  offsetX = e.clientX - sandal.getBoundingClientRect().left;
-  offsetY = e.clientY - sandal.getBoundingClientRect().top;
+  const clientX = e.clientX || e.touches[0].clientX; // Handle touch events
+  const clientY = e.clientY || e.touches[0].clientY; // Handle touch events
+  offsetX = clientX - sandal.getBoundingClientRect().left;
+  offsetY = clientY - sandal.getBoundingClientRect().top;
   sandal.style.cursor = 'grabbing';
-});
+}
 
-document.addEventListener('mousemove', (e) => {
+// Function to drag
+function drag(e) {
   if (isDragging) {
-    const x = e.clientX - offsetX;
-    const y = e.clientY - offsetY;
+    const clientX = e.clientX || e.touches[0].clientX; // Handle touch events
+    const clientY = e.clientY || e.touches[0].clientY; // Handle touch events
+    const x = clientX - offsetX;
+    const y = clientY - offsetY;
     sandal.style.left = `${x}px`;
     sandal.style.top = `${y}px`;
 
@@ -40,12 +45,23 @@ document.addEventListener('mousemove', (e) => {
       sandal.style.cursor = 'grab';
     }
   }
-});
+}
 
-document.addEventListener('mouseup', () => {
+// Function to stop dragging
+function stopDrag() {
   isDragging = false;
   sandal.style.cursor = 'grab';
-});
+}
+
+// Add event listeners for mouse and touch
+sandal.addEventListener('mousedown', startDrag);
+sandal.addEventListener('touchstart', startDrag);
+
+document.addEventListener('mousemove', drag);
+document.addEventListener('touchmove', drag);
+
+document.addEventListener('mouseup', stopDrag);
+document.addEventListener('touchend', stopDrag);
 
 // Handle the "No" button (make it move around)
 noButton.addEventListener('mouseover', () => {
