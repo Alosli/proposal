@@ -16,6 +16,36 @@ h1 {
   color: #ff6f61;
 }
 
+#gameArea {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  margin: 20px auto;
+  background-color: #e0e0e0;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+}
+
+#cockroach {
+  position: absolute;
+  width: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#sandal {
+  position: absolute;
+  width: 80px;
+  bottom: 10px;
+  left: 10px;
+  cursor: grab;
+}
+
+#proposal {
+  margin-top: 20px;
+}
+
 button {
   padding: 10px 20px;
   font-size: 16px;
